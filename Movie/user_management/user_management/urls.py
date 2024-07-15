@@ -5,8 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),  # Ensure this line includes your `accounts` app URLs
-    # Include static and media URL patterns if required
+    path('', include('accounts.urls')),
 ]
 
 if settings.DEBUG:

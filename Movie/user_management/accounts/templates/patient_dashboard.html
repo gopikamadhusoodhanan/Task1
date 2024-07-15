@@ -20,10 +20,44 @@
                 <p><strong>Address:</strong> {{ user.address_line1 }}, {{ user.city }}, {{ user.state }}, {{ user.pincode }}</p>
             </div>
         </div>
+            <div id="blogPosts">
+                <a href="{% url 'accounts:public_posts' %}" class="btn btn-primary">View Public Posts</a>
+            </div>
+        </div>
     </div>
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript for AJAX -->
+    <script>
+        $(document).ready(function() {
+            // Function to load blog posts based on selected category
+            $('#categorySelect').change(function() {
+                var category = $(this).val();
+                loadBlogPosts(category);
+            });
+
+            // Initial load of blog posts (all categories)
+            loadBlogPosts('');
+
+            function loadBlogPosts(category) {
+                $.ajax({
+                    url: '/load_blog_posts/',  // Adjust URL as per your Django view for loading posts
+                    type: 'GET',
+                    data: {
+                        'category': category
+                    },
+                    success: function(response) {
+                        $('#blogPosts').html(response);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

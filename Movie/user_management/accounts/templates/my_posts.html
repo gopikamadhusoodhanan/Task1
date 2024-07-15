@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Posts</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for post cards */
+        .post-card {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 400px; /* Set maximum width for the card */
+            height: 100%;
+        }
+        .post-card img {
+            width: 100%; /* Ensure image fills the card width */
+            height: auto; /* Maintain aspect ratio */
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .post-card .card-body {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Posts</h1>
+
+        {% for post in posts %}
+            <div class="post-card">
+                <!-- Display the image if it exists -->
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% endif %}
+
+                <div class="card-body">
+                    <h3>{{ post.title }}</h3>
+                    <p><strong>Category:</strong> {{ post.category }}</p>
+                    <p><strong>Summary:</strong> {{ post.summary }}</p>
+
+                    {% if user.user_type == 'doctor' %}
+                        <p><strong>Content:</strong></p>
+                        <div>{{ post.content | safe }}</div>
+                        <!-- Add more details as needed -->
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies (if needed) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
