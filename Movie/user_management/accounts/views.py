@@ -69,7 +69,7 @@ def my_posts(request):
     return render(request, 'my_posts.html', {'posts': posts})
 def public_posts(request):
     categories = CATEGORY_CHOICES
-    posts_by_category = {category[0]: BlogPost.objects.filter(category=category[0], is_draft=False) for category in categories}
+    posts_by_category = {category[0]: BlogPost.objects.filter(category=category[0]) for category in categories}
     return render(request, 'public_posts.html', {'posts_by_category': posts_by_category})
 
 class BlogPostViewSet(viewsets.ModelViewSet):

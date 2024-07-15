@@ -20,6 +20,10 @@
         .card-body {
             flex: 1; /* Expand to fill remaining space */
         }
+        .card-footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
     </style>
 </head>
 <body>
@@ -42,14 +46,15 @@
 
                             <div class="card-body">
                                 <h5 class="card-title">{{ post.title }}</h5>
-                                <p class="card-text"><strong>Category:</strong> {{ post.category }}</p>
+                                <p class="card-text"><strong>Category:</strong> {{ post.get_category_display }}</p>
                                 <p class="card-text"><strong>Summary:</strong> {{ post.summary }}</p>
-
+                            </div>
+                            <div class="card-footer">
+                                <p class="text-muted"><strong>Status:</strong> {{ post.is_draft|yesno:"Draft,Published" }}</p>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-                <br><br>
             </div>
             <hr> <!-- Optional: Line separator between categories -->
         {% endfor %}
